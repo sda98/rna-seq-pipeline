@@ -1,5 +1,0 @@
-sample_id	condition	replicate	fastq_1	fastq_2
-sample1	control	1	data/raw/sample1_R1.fastq.gz	data/raw/sample1_R2.fastq.gz
-sample2	control	2	data/raw/sample2_R1.fastq.gz	data/raw/sample2_R2.fastq.gz
-sample3	treated	1	data/raw/sample3_R1.fastq.gz	data/raw/sample3_R2.fastq.gz
-sample4	treated	2	data/raw/sample4_R1.fastq.gz	data/raw/sample4_R2.fastq.gz
