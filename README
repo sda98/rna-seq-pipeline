@@ -56,3 +56,131 @@ rna-seq-end-to-end/
 │  └─ figures/
 └─ docs/
    └─ results_summary.md   # short written summary of the analysis
+
+
+---
+
+## 4. Requirements
+
+### OS and command-line tools
+
+- Linux/Unix environment
+- `bash`
+- FastQC
+- A short-read aligner: HISAT2 
+- `samtools`
+- `featureCounts` or `htseq-count`
+- `gzip`, `wget` or `curl`
+
+### R and packages
+
+- R ≥ 4.x
+- Recommended packages:
+  - DESeq2
+  - ggplot2
+  - pheatmap or ComplexHeatmap
+  - clusterProfiler (or similar enrichment package)
+  - An organism annotation package (e.g., org.Hs.eg.db or org.Mm.eg.db)
+  - EnhancedVolcano (optional)
+  - dplyr, tibble, readr, stringr
+
+You can record the exact R environment in your analysis scripts using:
+
+```r
+sessionInfo()
+
+---
+
+# 5. Example dataset
+
+This workflow is demonstrated on a small public RNA-seq dataset so that it can be run on a laptop.
+
+- Source: a public GEO/SRA RNA-seq experiment
+- Organism: typically Mus musculus or Homo sapiens
+- Design: at least two conditions with biological replicates
+
+To keep the repository lightweight, FASTQ files are not stored here.
+Instead, a small download script (e.g., scripts/00_download_data.sh) or short instructions can be used to retrieve the data from public archives.
+
+---
+
+# 6. Quick start
+
+# 6.1 Clone this repository
+
+git clone https://github.com/YOUR_USERNAME/rna-seq-end-to-end.git
+cd rna-seq-end-to-end
+
+# 6.2. Download repository
+
+git clone https://github.com/YOUR_USERNAME/rna-seq-end-to-end.git
+cd rna-seq-end-to-end
+
+# 6.3. Run the command lines
+
+# 1) QC of raw reads
+bash scripts/01_qc.sh
+
+# 2) (Optional) trimming
+bash scripts/02_trim.sh
+
+# 3) Alignment to reference genome
+bash scripts/03_align.sh
+
+# 4) Count reads per gene
+bash scripts/04_count.sh
+
+These steps should produce aligned BAM files and a gene-level count matrix under results/.
+
+# 6.4. Run DESeq2 and visualization (R)
+
+From the project root, start R (or RStudio) and run:
+
+source("R/01_deseq2_analysis.R")
+
+This script should:
+
+- Load the count matrix and sample metadata
+- Run DESeq2
+- Save results and plots into results/deseq2/ and results/figures/
+
+# 6.5. Run enrichment analysis (R)
+
+source("R/02_enrichment_analysis.R")
+
+This script should:
+
+- Take a list of differentially expressed genes
+- Perform GO / pathway enrichment
+- Save tables and plots into results/enrichment/
+
+# 7. Outputs
+
+After running the full workflow, you should see:
+
+- QC reports in results/qc/
+- Aligned reads (BAM files) in results/alignments/
+- Gene counts in results/counts/
+- Differential expression results in results/deseq2/
+- Figures (e.g., PCA, volcano plots, heatmaps) in results/figures/
+- Enrichment tables and plots in results/enrichment/
+
+A short written interpretation of the results can be placed in docs/results_summary.md.
+
+# 8. Reproducibility notes
+
+The pipeline is intended for a fresh Linux/R environment with the listed tools installed. 
+If you change dataset or species, update:
+
+- Sample metadata
+- Reference genome and annotation
+- Organism-specific R annotation packages
+- For strict reproducibility, set random seeds in your R scripts and document software versions in the README or a separate environment file.
+
+# 9. Author
+
+Author: Sergey Dadoyan
+Contact: [[LinkedIn](https://www.linkedin.com/in/sergey-dadoyan-msc/)]; serg.dado98@gmail.com
+
+If you find this workflow useful or have suggestions for improvement, feel free to open an issue or reach out.
+
