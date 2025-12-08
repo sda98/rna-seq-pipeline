@@ -1,0 +1,58 @@
+# End-to-End RNA-seq Workflow in R & Linux  
+_From FASTQ → counts → differential expression → enrichment analysis_
+
+## 1. Overview
+
+This repository contains a simple, end-to-end **RNA-seq analysis pipeline** built with **bash + R**.  
+It shows how to go from **raw FASTQ files** to:
+
+- Quality control (QC)
+- Read alignment and gene-level counts
+- Differential expression analysis (**DESeq2**)
+- Basic visualization (PCA, heatmaps, volcano plots)
+- Functional enrichment (Gene Ontology / pathways)
+
+The goal is to provide a **clear, reproducible example** of how I typically analyze RNA-seq data in real research projects.
+
+> ✅ This is a **generic workflow** using a small public dataset (no proprietary or sensitive data).
+
+---
+
+## 2. Workflow summary
+
+High-level steps:
+
+1. **QC of raw reads** – FastQC (+ optional MultiQC)
+2. **Trimming** – remove low-quality bases/adapters
+3. **Alignment** – map reads to a reference genome
+4. **Counting** – summarize reads to gene-level counts
+5. **DE analysis in R** – using DESeq2
+6. **Visualization** – PCA, heatmap, volcano plots
+7. **Enrichment** – GO / pathway analysis from DE results
+
+---
+
+## 3. Repository structure
+
+```text
+rna-seq-end-to-end/
+├─ data/
+│  ├─ raw/                # FASTQ files (not tracked; download instructions below)
+│  ├─ metadata/           # sample metadata (CSV/TSV)
+│  └─ reference/          # reference genome / annotation (or links)
+├─ scripts/
+│  ├─ 01_qc.sh            # run FastQC (and MultiQC)
+│  ├─ 02_trim.sh          # optional trimming
+│  ├─ 03_align.sh         # alignment to reference
+│  └─ 04_count.sh         # counting reads per gene
+├─ R/
+│  ├─ 01_deseq2_analysis.R      # DESeq2 workflow (PCA, DE, plots)
+│  └─ 02_enrichment_analysis.R  # GO / pathway analysis
+├─ results/
+│  ├─ qc/
+│  ├─ counts/
+│  ├─ deseq2/
+│  ├─ enrichment/
+│  └─ figures/
+└─ docs/
+   └─ results_summary.md   # short written summary of the analysis
