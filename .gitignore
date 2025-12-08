@@ -1,0 +1,17 @@
+# Raw data and big files
+data/raw/
+results/
+*.fastq
+*.fastq.gz
+*.fq
+*.fq.gz
+*.bam
+*.sam
+
+# R / RStudio
+.Rhistory
+.RData
+.Rproj.user/
+
+# Misc
+.DS_Store
