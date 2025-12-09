@@ -30,19 +30,19 @@ echo
 for SRA_ID in "${SRA_IDS[@]}"; do
   echo "=== Processing ${SRA_ID} ==="
 
+  # If FASTQ already exists, skip this ID
+  if compgen -G "${RAW_DIR}/${SRA_ID}_1.fastq*" > /dev/null || \
+     compgen -G "${RAW_DIR}/${SRA_ID}.fastq*" > /dev/null; then
+    echo "Skipping ${SRA_ID} (FASTQ already exists)"
+    echo
+    continue
+  fi
+
   # Download .sra file to the default SRA directory
   prefetch "${SRA_ID}"
 
   # Convert .sra to FASTQ; --split-files for paired-end
   fasterq-dump "${SRA_ID}" -O "${RAW_DIR}" --split-files
-
-  # Compress FASTQ files
-  if [[ -f "${RAW_DIR}/${SRA_ID}_1.fastq" ]]; then
-    gzip -f "${RAW_DIR}/${SRA_ID}_1.fastq"
-  fi
-  if [[ -f "${RAW_DIR}/${SRA_ID}_2.fastq" ]]; then
-    gzip -f "${RAW_DIR}/${SRA_ID}_2.fastq"
-  fi
 
   echo "Finished ${SRA_ID}"
   echo
