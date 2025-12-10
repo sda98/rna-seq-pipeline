@@ -16,7 +16,7 @@ echo "Output directory: ${OUT_DIR}"
 echo
 
 # Run FastQC on all FASTQ/FASTQ.GZ files
-for fq in "${RAW_DIR}"/*.fastq "${RAW_DIR}"/*.fastq.gz 2>/dev/null; do
+for fq in "${RAW_DIR}"/*.fastq "${RAW_DIR}"/*.fastq.gz; do
   # Skip if no files match
   [ -e "$fq" ] || continue
   echo "Processing: $(basename "$fq")"
