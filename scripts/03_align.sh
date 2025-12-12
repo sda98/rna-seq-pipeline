@@ -188,7 +188,7 @@ for R1 in "${IN_DIR}"/*_R1.trimmed.paired.fastq.gz "${IN_DIR}"/*_R1.trimmed.pair
     -1 "${R1}" \
     -2 "${R2}" \
     -p "${THREADS}" \
-  | samtools sort -@ "${THREADS}" -o "${OUT_BAM}"
+  | samtools sort -@ "${THREADS}" -T "${TMP_DIR}/${sample}" -o "${OUT_BAM}"
 
   samtools index "${OUT_BAM}"
 
@@ -232,7 +232,7 @@ for fq in \
     -x "${HISAT2_INDEX_PREFIX}" \
     -U "${fq}" \
     -p "${THREADS}" \
-  | samtools sort -@ "${THREADS}" -o "${OUT_BAM}"
+  | samtools sort -@ "${THREADS}" -T "${TMP_DIR}/${sample}" -o "${OUT_BAM}"
 
   samtools index "${OUT_BAM}"
 
