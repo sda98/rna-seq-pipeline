@@ -22,6 +22,14 @@
 
 set -euo pipefail
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
+
+IN_DIR="${1:-${ROOT_DIR}/data/trimmed}"
+OUT_DIR="${2:-${ROOT_DIR}/results/alignments}"
+TMP_DIR="${TMP_DIR:-/tmp/rnaseq_samtools}"
+mkdir -p "${OUT_DIR}" "${TMP_DIR}"
+
 #########################
 # Configuration
 #########################
